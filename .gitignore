@@ -35,3 +35,6 @@ next-env.d.ts
 
 # npm cache
 .npm-cache
+
+# deployment secrets (temporary file created by wizard)
+.deployment-secrets.txt
