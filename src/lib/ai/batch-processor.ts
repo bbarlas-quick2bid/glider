@@ -31,7 +31,9 @@ export async function batchAnalyzeEmails(
 
   for (const batch of batches) {
     const batchResults = await queue.add(() => processBatch(batch));
-    results.push(...batchResults);
+    if (batchResults) {
+      results.push(...batchResults);
+    }
   }
 
   logger.info(`Completed batch analysis: ${results.length} emails analyzed`);

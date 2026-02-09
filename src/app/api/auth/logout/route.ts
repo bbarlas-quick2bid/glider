@@ -8,7 +8,7 @@ import { logger } from '@/lib/utils/logger';
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getIronSession(await cookies(), sessionOptions);
+    const session: any = await getIronSession(await cookies(), sessionOptions);
 
     logger.info('User logging out:', session.user?.email);
 

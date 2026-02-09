@@ -40,13 +40,16 @@ export async function fetchRecentEmails(
     const query = `after:${dateStr}`;
 
     // List messages with rate limiting
-    const { messages, nextPageToken } = await queue.add(() =>
+    const result = await queue.add(() =>
       gmailClient.listMessages({
         maxResults,
         query,
         pageToken,
       })
     );
+
+    const messages = result?.messages || [];
+    const nextPageToken = result?.nextPageToken;
 
     if (!messages || messages.length === 0) {
       logger.info('No messages found');
@@ -89,10 +92,10 @@ async function fetchMessagesWithRateLimit(
     const results = await Promise.allSettled(promises);
 
     for (const result of results) {
-      if (result.status === 'fulfilled') {
+      if (result.status === 'fulfilled' && result.value) {
         messages.push(result.value);
       } else {
-        logger.error('Failed to fetch message:', result.reason);
+        logger.error('Failed to fetch message:', result.status === 'rejected' ? result.reason : 'No value');
       }
     }
   }

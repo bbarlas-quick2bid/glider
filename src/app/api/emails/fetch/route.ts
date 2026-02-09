@@ -14,7 +14,7 @@ import { AuthError } from '@/lib/utils/errors';
 export async function GET(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getIronSession(await cookies(), sessionOptions);
+    const session: any = await getIronSession(await cookies(), sessionOptions);
 
     if (!isAuthenticated(session)) {
       return NextResponse.json(

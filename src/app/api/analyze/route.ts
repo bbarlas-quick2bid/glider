@@ -12,7 +12,7 @@ import { logger } from '@/lib/utils/logger';
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getIronSession(await cookies(), sessionOptions);
+    const session: any = await getIronSession(await cookies(), sessionOptions);
 
     if (!isAuthenticated(session)) {
       return NextResponse.json(
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 // GET endpoint to check analysis status
 export async function GET(request: NextRequest) {
   try {
-    const session = await getIronSession(await cookies(), sessionOptions);
+    const session: any = await getIronSession(await cookies(), sessionOptions);
 
     if (!isAuthenticated(session)) {
       return NextResponse.json(

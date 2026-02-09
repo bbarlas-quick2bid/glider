@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
     await saveTokens(user.id, tokens);
 
     // Create session
-    const session = await getIronSession(await cookies(), sessionOptions);
+    const session: any = await getIronSession(await cookies(), sessionOptions);
     session.user = {
       userId: user.id,
       email: user.email,

@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   // Only protect /dashboard routes
   if (request.nextUrl.pathname.startsWith('/dashboard')) {
     try {
-      const session = await getIronSession(request, response, sessionOptions);
+      const session: any = await getIronSession(request, response, sessionOptions);
 
       // Check if user is authenticated
       if (!session.user?.isLoggedIn) {
